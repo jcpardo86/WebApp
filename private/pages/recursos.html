@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recursos - Gestión de Recursos y Periodos de Facturación</title>
+
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+
+  <!-- Librerías externas -->
+  <script src="https://apis.google.com/js/api.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+</head>
+
+<body class="bg-white p-6">
+  <div class="container mx-auto max-w-5xl">
+    <header class="mb-8 text-center">
+      <h1 class="text-4xl font-bold text-gray-800">Ringana Sales</h1>
+      <a href="./index.html" title="Volver al inicio">
+        <img src="./img/logo.png" alt="Logo de Ringana Sales" class="w-64 h-64 mx-auto mt-4" />
+      </a>
+    </header>
+
+    <div id="menu-container" class="mb-6"></div>
+
+    <main>
+      <section id="recursos" class="mb-10 bg-white p-6 rounded-xl shadow-lg">
+        <h2 class="text-2xl font-bold text-center mb-8 text-gray-800">👩‍💼 Gestión de Recursos</h2>
+        <div class="grid grid-cols-1 gap-6">
+          
+          <!-- PRODUCTOS -->
+          <div class="bg-gray-100 p-6 rounded-lg shadow">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-xl font-semibold text-gray-700">🛍️ Productos</h3>
+              <button onclick="toggleProductos()" id="icono-productos" class="text-gray-600 hover:text-gray-900">👁️</button>
+            </div>
+            <div class="flex flex-wrap gap-4 mb-4">
+              <input id="nuevoProducto" type="text" placeholder="Nombre del producto" class="flex-1 p-2 border rounded-md" />
+              <input id="puntosProducto" type="number" min="0" placeholder="Puntos" class="w-24 p-2 border rounded-md" />
+              <input id="mesAvisoProducto" type="number" min="0" placeholder="Meses de aviso" class="w-36 p-2 border rounded-md" />
+              <button onclick="agregarProducto()" class="p-2 bg-blue-600 text-white rounded hover:bg-blue-700">➕</button>
+            </div>
+            <div id="productos" class="hidden"></div>
+          </div>
+          
+          <!-- CLIENTAS -->
+          <div class="bg-gray-100 p-6 rounded-lg shadow">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-xl font-semibold text-gray-700">👩‍🦰 Clientas</h3>
+              <button onclick="toggleClientas()" id="icono-clientas" class="text-gray-600 hover:text-gray-900">👁️</button>
+            </div>
+            <div class="flex flex-wrap gap-4 mb-4">
+              <input id="nuevaClienta" type="text" placeholder="Nueva clienta" class="flex-1 p-2 border rounded-md" />
+              <button onclick="agregarClienta()" class="p-2 bg-blue-600 text-white rounded hover:bg-blue-700">➕</button>
+            </div>
+            <div id="clientas" class="hidden"></div>
+          </div>
+          
+          <!-- BONOS -->
+          <div class="bg-gray-100 p-6 rounded-lg shadow">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-xl font-semibold text-gray-700">🎁 Bonos</h3>
+              <button onclick="toggleBonos()" id="icono-bonos" class="text-gray-600 hover:text-gray-900">👁️</button>
+            </div>
+            <div class="flex flex-wrap gap-4 mb-4">
+              <input id="nuevoBono" type="text" placeholder="Nuevo bono" class="flex-1 p-2 border rounded-md" />
+              <button onclick="agregarBono()" class="p-2 bg-blue-600 text-white rounded hover:bg-blue-700">➕</button>
+            </div>
+            <div id="bonos" class="hidden"></div>
+          </div>
+          
+          <!-- SOCIOS -->
+          <div class="bg-gray-100 p-6 rounded-lg shadow">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-xl font-semibold text-gray-700">🤝 Socios</h3>
+              <button onclick="toggleSocios()" id="icono-socios" class="text-gray-600 hover:text-gray-900">👁️</button>
+            </div>
+            <div class="flex flex-wrap gap-4 mb-4">
+              <input id="nuevoSocio" type="text" placeholder="Nuevo socio" class="flex-1 p-2 border rounded-md" />
+              <button onclick="agregarSocio()" class="p-2 bg-blue-600 text-white rounded hover:bg-blue-700">➕</button>
+            </div>
+            <div id="socios" class="hidden"></div>
+          </div>
+
+        </div>
+      </section>
+
+      <section id="periodos" class="mb-12 bg-white p-6 rounded-xl shadow-lg">
+        <h2 class="text-2xl font-bold text-center mb-6 text-gray-800">📅 Periodos de Facturación</h2>
+
+        <div class="flex flex-wrap gap-4 mb-4 items-center">
+          <label for="nombrePeriodo" class="text-lg font-medium">Nombre</label>
+          <input id="nombrePeriodo" type="text" placeholder="Ej: Marzo25" class="border p-2 rounded-md" />
+          <label for="fechaInicioPeriodo" class="text-lg font-medium">Inicio</label>
+          <input id="fechaInicioPeriodo" type="date" class="border p-2 rounded-md" />
+          <label for="fechaFinPeriodo" class="text-lg font-medium">Fin</label>
+          <input id="fechaFinPeriodo" type="date" class="border p-2 rounded-md" />
+          <button onclick="agregarPeriodo()" class="p-2 bg-blue-600 text-white rounded hover:bg-blue-700">➕</button>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="min-w-full bg-white mt-4 border rounded-md">
+            <thead class="bg-gray-200 text-gray-700">
+              <tr>
+                <th class="py-2 px-4 border">Nombre</th>
+                <th class="py-2 px-4 border">Inicio</th>
+                <th class="py-2 px-4 border">Fin</th>
+                <th class="py-2 px-4 border">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tablaPeriodos">
+              <!-- Contenido generado dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    fetch("./pages/modulos/menu.html")
+      .then(res => res.text())
+      .then(html => {
+        const container = document.getElementById("menu-container");
+        if (container) container.innerHTML = html;
+      });
+  </script>
+
+  <!-- Script funcionalidad recursos -->
+  <script type="module">
+    import {
+      toggleProductos, agregarProducto, cargarProductos,
+      toggleClientas, agregarClienta, cargarClientas,
+      toggleBonos, agregarBono, cargarBonos,
+      toggleSocios, agregarSocio, cargarSocios
+    } from "./js/recursos.js";
+
+    window.toggleProductos = toggleProductos;
+    window.agregarProducto = agregarProducto;
+    window.toggleClientas = toggleClientas;
+    window.agregarClienta = agregarClienta;
+    window.toggleBonos = toggleBonos;
+    window.agregarBono = agregarBono;
+    window.toggleSocios = toggleSocios;
+    window.agregarSocio = agregarSocio;
+
+    // Cargar datos automáticamente
+    cargarProductos();
+    cargarClientas();
+    cargarBonos();
+    cargarSocios();
+  </script>
+
+  <!-- Firebase Auth Guard -->
+  <script type="module">
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC1D6o52R9eLzZBImfxer9QoE050XMIBys",
+      authDomain: "ringana-dbc59.firebaseapp.com",
+      projectId: "ringana-dbc59",
+      storageBucket: "ringana-dbc59.firebasestorage.app",
+      messagingSenderId: "23497738168",
+      appId: "1:23497738168:web:415186e48b1d7968ce314d"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+
+    onAuthStateChanged(auth, user => {
+      if (!user) {
+        window.location.href = "./pages/modulos/login.html";
+      }
+    });
+  </script>
+  <script type="module" src="./js/firebase-auth.js"></script>
+
+
+</body>
+</html>

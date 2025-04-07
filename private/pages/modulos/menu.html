@@ -1,0 +1,52 @@
+<nav class="bg-gray-100 p-4 rounded-lg shadow-md mb-6">
+  <!-- Menú principal -->
+  <ul class="flex flex-wrap justify-center gap-4 items-center mb-4">
+    <li>
+      <a href="./index.html"
+         class="menu-link bg-gray-200 text-gray-800 py-2 px-6 rounded-lg hover:bg-gray-300 font-semibold">
+        🏠 Inicio
+      </a>
+    </li>
+    <li>
+      <a href="./pages/ventas.html"
+         class="menu-link bg-gray-200 text-gray-800 py-2 px-6 rounded-lg hover:bg-gray-300">
+        💼 Ventas
+      </a>
+    </li>
+    <li>
+      <a href="./pages/recursos.html"
+         class="menu-link bg-gray-200 text-gray-800 py-2 px-6 rounded-lg hover:bg-gray-300">
+        👩‍🦰 Recursos
+      </a>
+    </li>
+    <li>
+      <a href="./pages/dashboard.html"
+         class="menu-link bg-gray-200 text-gray-800 py-2 px-6 rounded-lg hover:bg-gray-300">
+        📊 Dashboard
+      </a>
+    </li>
+    <li>
+      <a href="./pages/datos.html"
+         class="menu-link bg-gray-200 text-gray-800 py-2 px-6 rounded-lg hover:bg-gray-300">
+        📂 Datos
+      </a>
+    </li>
+    <li>
+      <a href="./pages/contabilidad.html"
+         class="menu-link bg-gray-200 text-gray-800 py-2 px-6 rounded-lg hover:bg-gray-300">
+        💰 Contabilidad
+      </a>
+    </li>
+  </ul>
+
+  <!-- Línea inferior: bienvenida + logout -->
+  <div class="flex flex-wrap justify-center items-center gap-4">
+    <span id="welcomeMessage" class="text-gray-700 font-medium flex items-center gap-2">
+      👋 Bienvenid@ <span class="font-semibold text-blue-700">Usuario</span> 👤
+    </span>
+    <button onclick="logout()"
+            class="bg-red-600 text-white py-2 px-6 rounded-lg hover:bg-red-700 transition">
+      🔓 Cerrar sesión
+    </button>
+  </div>
+</nav>
