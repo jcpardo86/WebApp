@@ -4,20 +4,11 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "public": "private",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "rewrites": [
-  {
-    "source": "**",
-    "destination": "/index.html"
-  }
-],
-"cleanUrls": true,
-"errorPage": "/404.html"
-
+    ]
   }
 }
